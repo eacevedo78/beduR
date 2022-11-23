@@ -6,7 +6,12 @@ de ggplot2. Realiza los siguientes incisos y responde a las preguntas:"
 
 "1) Calcula e interpreta las medidas de tendencia central de la variable price"
 library(DescTools)
-Mode(diamonds$price); median(diamonds$price); mean(diamonds$price)
+"Moda"
+Mode(diamonds$price);
+"Mediana"
+median(diamonds$price);
+"Media o promedio"
+mean(diamonds$price)
 
 "2) Con base en tu resultado anteior, ¿qué se puede concluir respecto al sesgo del precio?"
 "R. Dado que moda < mediana < media, la distribución está sesgada a la derecha."
