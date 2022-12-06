@@ -21,9 +21,11 @@ Basta con establecer los siguientes argumentos
 - freq: Número de observaciones por unidad de tiempo
 
 Vamos a crear 3 series de tiempo mensuales para los datos que tenemos:"
-Elec.ts <- #
-Beer.ts <- #
-Choc.ts <- #
+Elec.ts <- ts(CBE[,3],start=c(1958,1), frequency=12) #
+Beer.ts <- ts(CBE[,2],start=c(1958,1), frequency=12)#
+Choc.ts <- ts(CBE[,1],start=c(1958,1), frequency=12)#
+
+#1: Anuales, 4 Trimestrales, 12 mensuales, 52 semanales
 class(Elec.ts);class(Beer.ts);class(Choc.ts)
 
 plot(cbind(Elec.ts, Beer.ts, Choc.ts), 
@@ -39,7 +41,7 @@ promedio (valor de tendencia de largo plazo) sea constante al igual que varianza
 Para entender cómo se comporta una serie de tiempo, vamos a analizar el modelo de 
 ruido blanco ~ N(0,1)"
 set.seed(3)
-w <- #
+w <- rnorm(300) #
 plot(w, type = "l", xlab = "")
 title(main = "Ruido Blanco Gaussiano", xlab = "Tiempo")
 
@@ -47,11 +49,11 @@ mean(w);sd(w)
 
 "La función de autocorrelación es una medida de la correlación entre las observaciones 
 temporales separadas por k rezagos."
-#
+acf(w)#
 
 "La función de autocorrelación parcial es una medida de la correlación entre las observaciones 
 temporales separadas por k rezagos, tomando en cuenta los valores de los intervalos intermedios"
-#
+pacf(w)#
 
 "En una serie de ruído blanco, la AC y la ACP no tiene valores significativos en los 
 rezagos de la variable."
@@ -59,8 +61,9 @@ rezagos de la variable."
 "Un ejemplo de serie no estacionaria es el modelo de caminada aleatoria. En este modelo
 tanto el promedio como la varianza dependen fuertemente del tiempo y sus incrementos son
 ruído blanco:"
-#
-#
+x <- w <- rnorm(1000)#
+
+for (t in 2:1000) x[t] <- x[t-1] + w[t] #
 
 plot(x, type = "l", main = "Caminata Aleatoria Simulada", 
      xlab = "t", ylab = expression(x[t]), 
@@ -84,6 +87,7 @@ plot(diff(x), type = "l", main = "Primera diferencia de X",
 
 acf(diff(x))
 pacf(diff(x))
+
 
 ## EJEMPLO 04: MODELOS ARIMA
 "ARIMA representa modelos Autorregresivos (AR) Integrados (I) de Media Móvil (MA) y se 
@@ -136,9 +140,13 @@ title(main = "Serie de log dif de Producción de Electricidad Australiana",
       xlab = "Tiempo", ylab = "Dif log-Serie",
       sub = "Gráfica de la serie log-transformada diferenciada de primer órden")
 
+acf(diff(log(Elec.ts)))
+pacf(diff(log(Elec.ts)))
+
 fit <- arima(log(Elec.ts), order = c(0, 1, 1), seas = c(2, 0, 2))
 
-pr <- #
+pr <- predict(fit,12)$pred#
+pr
 ts.plot(cbind(window(Elec.ts, start = 1981), exp(pr)), col = c("blue", "red"), xlab = "")
 title(main = "Predicción para la serie de producción de electricidad",
       xlab = "Mes",
