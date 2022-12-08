@@ -80,7 +80,7 @@ library(rjson)
 
 "La función fromJSON() permite leer archivos JSON locales o en una url:"
 URL <- "https://tools.learningcontainer.com/sample-json-file.json"
-JsonData <- ##
+JsonData <- fromJSON(file= URL)##
 
 class(JsonData)
 
