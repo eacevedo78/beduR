@@ -26,8 +26,8 @@ library(RMySQL)
 "Para realizar una conexión, necesitamos un engine que nos ayude a establecer el nombre 
 del servidor (servidio de DBMS), el nombre de la base de datos, host y, en su caso,
 usuario y contraseña:"
-db.conn <- ##(
-  drv = ##,
+db.conn <- dbConnect(
+  drv = RMySQL::MySQL(),
   dbname = "shinydemo",
   host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
   username = "guest",
@@ -35,13 +35,17 @@ db.conn <- ##(
 
 "Con la siguientes todas las tablas de datos que tenemos disponibles en nuestro database 
 y enlistar el nombre de los campos en cada una de ellas:"
-##
+dbListTables(db.conn)##
 
-##
+dbListFields(db.conn,"City")##
+dbListFields(db.conn,"Country")##
+dbListFields(db.conn,"CountryLanguage")##
 
 "La función dbGetQuery() nos permite realizar una consulta y extraer los datos obtenidos."
-db.data <- ##
-
+db.data <- dbGetQuery(db.conn,statement = "Select * from
+                      City a inner Country b on a.CountryCode=b.Code
+                      order by CityPopulation desc") ##
+db.data
 "Los datos son almacenados en un dataframe, por lo que podemos user otras funciones 
 para manipularlos, procesarlos y transformarlos."
 class(db.data)
@@ -51,10 +55,10 @@ head(db.data)
 o para dar o revocar permisos, las cuales no regresan datos que podemos almacenar en un 
 dataframe. (DCL). Como la conexión que estamos realizando es una databse pública, nos podemos 
 implementar DDL o DCL, pero podemos ejemplificarlo de la siguiente forma:"
-rs <- ##
+rs <- dbSendQuery(db.conn,"Select 'Hola mundo' as saludo")##
 
-##
-##
+dbFetch(rs)##
+dbClearResult(rs)##
 
 "Una vez terminadas nuestras consultas, debemos cerrar nuestra conexión:"
 dbDisconnect(db.conn)
