@@ -1,3 +1,10 @@
+# Postwork. Predicciones de la temperatura global
+
+# OBJETIVO
+# Estimar modelos ARIMA y realizar predicciones
+# DESARROLLO
+# Utilizando el siguiente vector numérico, realiza lo que se indica:
+
 url = "https://raw.githubusercontent.com/beduExpert/Programacion-R-Santander-2022/main/Sesion-07/Data/global.txt"
 Global <- scan(url, sep="")
 class(Global)
