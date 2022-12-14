@@ -56,7 +56,7 @@ La Ho -> en el texto siempre va a llevar el signo igual (<=, >= ó =) en otro ca
 La Ha -> hipotesis alternativa
 Siempre se concluye sobre la Hipotesis Nula (Ho), unicamente ser rechaza o NO se rechaza (nunca se describe como que "se acepta")
 
-Para el nivel de confianza p.ej 95% el resto 5% (o sea 0.05) <- este valor es el que se compara con el p-value de la funcion
+Para el nivel de confianza (nc) p.ej 95% el resto 5% (o sea 0.05 nivel de significancia) <- este valor es el que se compara con el p-value de la funcion
 t.test  si el valor de p-value es menor a (0.05) entonces la Ho se rechaza, en otro caso NO se rechaza.
 
 
