@@ -1,0 +1,66 @@
+Libreria dplyr, nos permite manipular datos mediante verbos.
+
+  * select - > permite seleccionar campos/variables de un dataframe.
+  
+  %>% -> operador tipo pipeline, obtiene la salida de una funcion como entrada de otra.
+
+  * arrange -> ordena un conjunto de resultados
+
+  * filter -> filtrar datos
+
+  ej.
+  
+  - Se ordena por spendint (asc x default) y luego por total (descendente)
+  visitas.rest.orden <- visitas.rest %>% select(date,spending,total) %>% arrange(spending, desc(total))
+  
+  - Lo mismo que el anterior solo que se filtran los registros con el spending mayores al millon, y menores al millon 200
+  visitas.rest.filtro <- visitas.rest %>% select(date,spending,total) %>%
+    arrange(spending, desc(total)) %>% filter(spending > 1000000, spending < 1200000)
+
+
+  * mutate -> Permite transformar variables o crear nuevas a partir de otras.
+  * transform -> transforma variables, pero las reemplaza.
+
+----------------------------------------------------------------------------------
+Medidas Descriptivas
+  * Tendencia Central -> hacia que punto se dirigen los datos. Hay 3:
+    - promedio (mean) ->es sensible a datos atipicos
+    - mediana (median) -> no es sensible a datos atipicos.
+    - moda (Mode) -> valor o dato que mas se repite, normalmente se usan datos cualitativos
+  * Dispersión
+    - Desviacion estandar -> raiz cuadrada de las variaciones de los datos con respecto a la media (promedio)
+    - Varianza -> 
+    - Rango Intercuartilico -> Dispersión que existe al rededor de la mediana
+  * Posición
+    - CuaNtiles -> nombre generido
+    - Cartiles -> separan la distribución en 4 grupos de 25% c/u
+    - Deciles -> separan la distribución en 10 grupos de 10% c/u
+    - Percentiles o Centiles -> separan la distribución en 100 grupos de 1% c/u
+  * Forma (library(moments))
+    - Sesgo -> Nos permite ver si los datos se encuentran de forma simetrica alrededor de la media
+    - Curtosis -> Nos permite tener una idea de queé tan concentrados se encuentran los datos al rededor de la media.
+    
+     skewness(d$rs) si s > 0 Sesgo a la derecha
+                    si s = 0 Simétrica
+                    si s < 0 Sesgo a la izquierda
+
+     kurtosis(d$rs) Leptocurtica k > 3
+                    Mesocurtica  k = 3
+                    Platocurtica k < 3
+
+----------------------------------------------------------------------------------
+
+INFERENCIA sobre la media.
+
+La Ho -> en el texto siempre va a llevar el signo igual (<=, >= ó =) en otro caso es la Ha
+La Ha -> hipotesis alternativa
+Siempre se concluye sobre la Hipotesis Nula (Ho), unicamente ser rechaza o NO se rechaza (nunca se describe como que "se acepta")
+
+Para el nivel de confianza p.ej 95% el resto 5% (o sea 0.05) <- este valor es el que se compara con el p-value de la funcion
+t.test  si el valor de p-value es menor a (0.05) entonces la Ho se rechaza, en otro caso NO se rechaza.
+
+
+
+
+
+
