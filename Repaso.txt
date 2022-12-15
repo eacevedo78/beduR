@@ -60,7 +60,11 @@ Para el nivel de confianza (nc) p.ej 95% el resto 5% (o sea 0.05 nivel de signif
 t.test  si el valor de p-value es menor a (0.05) entonces la Ho se rechaza, en otro caso NO se rechaza.
 
 
+ANOVA -> Análisis de Varianza.
+El análisis de varianza (de un factor) nos permite comparar la media de una variable considerando dos o más niveles/grupos.
+Entre muchas otra aplicaciones del ANOVA, esta téncnica puede emplearse como una extensión de la prueba t de Student.
 
+Ej. Existe evidencia estadística para concluir que, en promoedio, el tipo de corte tiene efectos sobre el quilate del diamante
 
 
 
